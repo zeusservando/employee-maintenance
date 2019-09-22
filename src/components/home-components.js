@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Forms from "./form-component";
 import Employees from './employees-component';
 export default class Home extends Component {
@@ -70,12 +71,13 @@ export default class Home extends Component {
 
 		return(
 				<div>
+					{/* check if credentials is match redirect to employees component*/}
 					{this.state.sessionStorage < 1 ? 
 					<Forms 
 						username={this.onCheckUsername}
 						password={this.onCheckPassword}
 						handleSubmit={this.onHandleLogin}
-						message={!this.state.isValid ? ' ' : 'Invalid credentials'}
+						message={!this.state.isValid ? ' ' : 'Invalid credentials.'}
 					/>: <Employees/>}
 					
 				</div>
