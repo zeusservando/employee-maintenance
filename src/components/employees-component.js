@@ -94,24 +94,22 @@ class Employees extends Component {
 		let contact 	= this.state.contact;
 		let email 		= this.state.email;
 		let balance 	= this.state.balance;
-		let storeResult;
 		// let empDetails;
 		let employeesCopy = [...this.state.employeeList];
-		for (let key in employeesCopy ) {
-			if(employeesCopy.hasOwnProperty(key)) {
-				employeesCopy[key].firstname = firstname === "" ? employeesCopy[key].firstname : firstname;
-				employeesCopy[key].lastname = lastname 	 === "" ? employeesCopy[key].lastname : lastname;
-				employeesCopy[key].birthdate = birthdate === "" ? employeesCopy[key].birthdate : birthdate;
-				employeesCopy[key].contact = contact 	 === "" ? employeesCopy[key].contact : contact;
-				employeesCopy[key].employeeList = email  === "" ? employeesCopy[key].email : email;
-				employeesCopy[key].balance = balance 	 === "" ? employeesCopy[key].balance : balance;
-				storeResult=[employeesCopy];
-				console.log(employeesCopy);
-			}
+		let getCurrentEmp = employeesCopy[--empId];
+
+		for (var i = 0; i < employeesCopy.length; i++) {
+			employeesCopy[empId].firstname = firstname 	 === "" ? employeesCopy[empId].firstname : firstname;
+			employeesCopy[empId].lastname = lastname 	 === "" ? employeesCopy[empId].lastname : lastname;
+			employeesCopy[empId].birthdate = birthdate 	 === "" ? employeesCopy[empId].birthdate : birthdate;
+			employeesCopy[empId].contact = contact 	 === "" ? employeesCopy[empId].contact : contact;
+			employeesCopy[empId].email = email  	 === "" ? employeesCopy[empId].email : email;
+			employeesCopy[empId].balance = balance 	 === "" ? employeesCopy[empId].balance : balance;
+
+			// console.log(storeResult,"here");
 		}
 
-		// let employeeCopy=Object.assign({},this.state.employeeList);
-		
+
 
 
 		this.setState({
