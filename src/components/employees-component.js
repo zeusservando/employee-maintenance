@@ -71,15 +71,15 @@ class Employees extends Component {
 	}
 
 	onEditEmployee=(index, e)=>{
-		let employeesCopy=[...this.state.employeeList];
+		let employeesCopy=Object.assign({},this.state.employeeList);
 		let getCurrentEmp = [employeesCopy[--index]];
-		console.log(getCurrentEmp);
-		employeesCopy[--index]=getCurrentEmp;
+		employeesCopy[++index]=getCurrentEmp;
+
 		this.setState({
 			empId:index,
 			isEdit:true,
 			getCurrentEmp:getCurrentEmp,
-			employeeList:employeesCopy
+			employeeList:this.state.employeeList
 		});	
 
 	}
@@ -87,30 +87,33 @@ class Employees extends Component {
 	onSaveEdit =() =>{
 		// console.log(this.state.employeeList);
 		// console.log(this.state.getCurrentEmp);
-		let empId = this.state.empId;
-		let empCopy = this.state.employeeList[empId];
-		console.log(empCopy);
-		let firstname = this.state.firstname;
-		let lastname = this.state.lastname;
-		let birthdate = this.state.birthdate;
-		let contact = this.state.contact;
-		let email = this.state.email;
-		let balance = this.state.balance;
+		let empId 		= this.state.empId;
+		let firstname 	= this.state.firstname;
+		let lastname 	= this.state.lastname;
+		let birthdate   = this.state.birthdate;
+		let contact 	= this.state.contact;
+		let email 		= this.state.email;
+		let balance 	= this.state.balance;
 		let storeResult;
 		// let empDetails;
-
-		for (let i = 0; i < empCopy.length; i++) {
-			empCopy[i].firstname = firstname=== "" ? empCopy[i].firstname : firstname;
-			empCopy[i].lastname  = lastname === "" ? empCopy[i].lastname : lastname;
-			empCopy[i].birthdate = birthdate=== "" ? empCopy[i].birthdate : birthdate;
-			empCopy[i].contact   = contact 	=== "" ? empCopy[i].contact : contact;
-			empCopy[i].email 	 = email 	=== "" ? empCopy[i].email : email;
-			empCopy[i].balance 	 = balance 	=== "" ? empCopy[i].balance : balance;
-			storeResult=[empCopy[i]];
+		let employeesCopy = [...this.state.employeeList];
+		for (let key in employeesCopy ) {
+			if(employeesCopy.hasOwnProperty(key)) {
+				employeesCopy[key].firstname = firstname === "" ? employeesCopy[key].firstname : firstname;
+				employeesCopy[key].lastname = lastname 	 === "" ? employeesCopy[key].lastname : lastname;
+				employeesCopy[key].birthdate = birthdate === "" ? employeesCopy[key].birthdate : birthdate;
+				employeesCopy[key].contact = contact 	 === "" ? employeesCopy[key].contact : contact;
+				employeesCopy[key].employeeList = email  === "" ? employeesCopy[key].email : email;
+				employeesCopy[key].balance = balance 	 === "" ? employeesCopy[key].balance : balance;
+				storeResult=[employeesCopy];
+				console.log(employeesCopy);
+			}
 		}
 
-		let employeeCopy=[...this.state.employeeList];
-		employeeCopy[empId] = storeResult;
+		// let employeeCopy=Object.assign({},this.state.employeeList);
+		
+
+
 		this.setState({
 			firstname: firstname,
 			lastname: lastname,
@@ -121,12 +124,16 @@ class Employees extends Component {
 			isEdit:true,
 			employeeList:this.state.employeeList
 		});
+			
+
 	}
 
 
 	onCancelEdit=()=>{
+		console.log(this.state.employeeList);
 		this.setState({
 			isEdit:false,
+			employeeList:this.state.employeeList
 		});	
 	}
 	render() {
@@ -155,13 +162,12 @@ class Employees extends Component {
 									<td>{value.contact}</td>
 									<td>{value.email}</td>
 									<td>{value.balance}</td>
-									<td><button className="btn btn-info" onClick={this.onEditEmployee.bind(this,key)}>Edit</button></td>
+									<td><button className="btn btn-info" onClick={this.onEditEmployee.bind(this,key)}>{key}Edit</button></td>
 									<td><button className="btn btn-success">Add pay</button></td>
 								</tr>
 							)}							
 						</tbody>
 					</table>: <Edit
-						empId={this.state.empId} 
 						employeeList={this.state.getCurrentEmp} 
 						cancelEdit={this.onCancelEdit}
 						SaveEdit={this.onSaveEdit.bind(this)}
