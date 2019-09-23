@@ -16,10 +16,8 @@ class Employees extends Component {
 			email:'',
 			balance:'',
 			empId:'',
-			employeeList:[
-				{id:1,firstname:'Lyndon',lastname:'Tan','birthdate':'Dec 21 1991', 'contact':123456789,'email':'lyndontnamail@gmail.com','balance':0},
-				{id:2,firstname:'Zeus',lastname:'Tan','birthdate':'Dec 21 1991', 'contact':123456789,'email':'lyndontnamail@gmail.com','balance':0}
-			],
+			getCurrentEmp:[],
+			employeeList:[],
 			isEdit:false
 		}
 		this.onUpdateFirstname = this.onUpdateFirstname.bind(this);
@@ -30,6 +28,27 @@ class Employees extends Component {
 		this.onUpdateBalance = this.onUpdateBalance.bind(this);
 	}
 
+	componentDidMount()
+	{
+		this.setState({employeeList:[
+			  {
+				'firstname':'foo',
+				'lastname':'bar',
+				'birthdate':'12-21-1991',
+				'contact':'123456789',
+				'email':'don@gmail.com',
+				'balance':'0'
+			 },
+			 {
+				'firstname':'Juan',
+				'lastname':'DelaCruz',
+				'birthdate':'12-21-1991',
+				'contact':'123456789',
+				'email':'don@gmail.com',
+				'balance':'0'
+			 },
+		 ]})
+	}
 	onUpdateFirstname(e){
 		this.setState({firstname:e.target.value})
 	}
@@ -52,49 +71,62 @@ class Employees extends Component {
 	}
 
 	onEditEmployee=(index, e)=>{
-		const employeesCopy=[...this.state.employeeList];
+		let employeesCopy=[...this.state.employeeList];
 		let getCurrentEmp = [employeesCopy[--index]];
 		console.log(getCurrentEmp);
+		employeesCopy[--index]=getCurrentEmp;
 		this.setState({
 			empId:index,
 			isEdit:true,
-			employeeList:getCurrentEmp
-		});		
+			getCurrentEmp:getCurrentEmp,
+			employeeList:employeesCopy
+		});	
+
 	}
 
-	onSaveEdit =(index, e) =>{
-		const empCopy = [...this.state.employeeList];
+	onSaveEdit =() =>{
+		// console.log(this.state.employeeList);
+		// console.log(this.state.getCurrentEmp);
 		let empId = this.state.empId;
+		let empCopy = this.state.employeeList[empId];
+		console.log(empCopy);
 		let firstname = this.state.firstname;
 		let lastname = this.state.lastname;
 		let birthdate = this.state.birthdate;
 		let contact = this.state.contact;
 		let email = this.state.email;
 		let balance = this.state.balance;
-		let empDetails;
+		let storeResult;
+		// let empDetails;
+
+		for (let i = 0; i < empCopy.length; i++) {
+			empCopy[i].firstname = firstname=== "" ? empCopy[i].firstname : firstname;
+			empCopy[i].lastname  = lastname === "" ? empCopy[i].lastname : lastname;
+			empCopy[i].birthdate = birthdate=== "" ? empCopy[i].birthdate : birthdate;
+			empCopy[i].contact   = contact 	=== "" ? empCopy[i].contact : contact;
+			empCopy[i].email 	 = email 	=== "" ? empCopy[i].email : email;
+			empCopy[i].balance 	 = balance 	=== "" ? empCopy[i].balance : balance;
+			storeResult=[empCopy[i]];
+		}
+
+		let employeeCopy=[...this.state.employeeList];
+		employeeCopy[empId] = storeResult;
 		this.setState({
 			firstname: firstname,
 			lastname: lastname,
 			birthdate:birthdate,
 			contact: contact,
 			email: email,
-			balance:balance
+			balance:balance,
+			isEdit:true,
+			employeeList:this.state.employeeList
 		});
-
-		empDetails=[firstname,lastname,birthdate,contact,email,balance];
-		empCopy[empId]=empDetails
-		this.setState({
-			employeeList:empCopy
-		});
-
-		console.log(empCopy);
 	}
 
 
 	onCancelEdit=()=>{
 		this.setState({
 			isEdit:false,
-			employeeList:this.state.employeeList
 		});	
 	}
 	render() {
@@ -130,9 +162,9 @@ class Employees extends Component {
 						</tbody>
 					</table>: <Edit
 						empId={this.state.empId} 
-						employeeList={this.state.employeeList} 
+						employeeList={this.state.getCurrentEmp} 
 						cancelEdit={this.onCancelEdit}
-						SaveEdit={this.onSaveEdit}
+						SaveEdit={this.onSaveEdit.bind(this)}
 						onEditFirstname={this.onUpdateFirstname}
 						onEditLastname={this.onUpdateLastName}
 						onEditBirthdate={this.onUpdateBirthdate}

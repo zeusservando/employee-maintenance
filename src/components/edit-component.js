@@ -7,7 +7,6 @@ import React from "react"
  			<table  className="table table-condensed">
 						<tbody>
 							<tr>
-								<th>ID</th>
 								<th>First Name</th>
 								<th>Last Name</th>
 								<th>Date of Birth</th>
@@ -18,7 +17,6 @@ import React from "react"
 							</tr>
  								{props.employeeList.map((value, key)=>
 							<tr key={key}>
-								<td>{value.id}</td>
 								<td><input type="text" onChange={props.onEditFirstname}  defaultValue={value.firstname}/></td>
 								<td><input type="text" onChange={props.onEditLastname}  defaultValue={value.lastname}/></td>
 								<td><input type="text" onChange={props.onEditBirthdat}  defaultValue={value.birthdate}/></td>
