@@ -33,14 +33,15 @@ import React from "react"
 								<td>
 									<button 
  										className="btn btn-warning" 
- 										onClick={props.cancelEdit}
- 										>Cancel
+ 										onClick={props.returnEdit}
+ 										>Return
  									</button>
 								</td>
 							</tr>
 							)}
 					</tbody>
 			</table>		
+							<p style={{color:'#4aff12'}}>{props.success ? "Record updated!": ""}</p>
 			</div>
  					)
  }
