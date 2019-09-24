@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-// import { BrowserRouter as Router,Route, Link } from 'react-router-dom';
-// import Create from './create-component';
+import Create from './create-component';
 import Edit from './edit-component';
 
 class Employees extends Component {
@@ -18,6 +17,7 @@ class Employees extends Component {
 			empId:'',
 			getCurrentEmp:[],
 			employeeList:[],
+			addNewEmp:false,
 			isEdit:false,
 			success:false
 		}
@@ -51,24 +51,27 @@ class Employees extends Component {
 		 ]})
 	}
 	onUpdateFirstname(e){
-		this.setState({firstname:e.target.value})
+		this.setState({firstname:e.target.value});
 	}
 
 	onUpdateLastName(e){
-		this.setState({lastname:e.target.value})
+		console.log(e);
+		this.setState({lastname:e.target.value});
 	}
 
 	onUpdateBirthDate(e){
-		this.setState({birthdate:e.target.value})
+		console.log(e);
+		this.setState({birthdate:e.target.value});
 	}
 	onUpdateContact(e){
-		this.setState({contact:e.target.value})
+		console.log(e);
+		this.setState({contact:e.target.value});
 	}
 	onUpdateEmail(e){
-		this.setState({email:e.target.value})
+		this.setState({email:e.target.value});
 	}
 	onUpdateBalance(e){
-		this.setState({balance:e.target.value})
+		this.setState({balance:e.target.value});
 	}
 
 	onEditEmployee=(index, e)=>{
@@ -116,8 +119,6 @@ class Employees extends Component {
 			employeeList:employeesCopy
 		});
 			
-		console.log("SAVED");
-		
 	}
 
 	onReturn=()=>{
@@ -128,6 +129,42 @@ class Employees extends Component {
 		});	
 	}
 
+	onAddNewEmployee=()=>{
+		this.setState({
+			addNewEmp:true
+		});
+	}
+
+	onSaveCreate=(e)=>{
+		let firstname 	= this.state.firstname;
+		let lastname 	= this.state.lastname;
+		let birthdate   = this.state.birthdate;
+		let contact 	= this.state.contact;
+		let email 		= this.state.email;
+		let balance 	= this.state.balance;
+		let employeesCopy = [...this.state.employeeList];
+
+		employeesCopy.push(Object.assign({},{
+				'firstname':firstname,
+				'lastname':lastname,
+				'birthdate':birthdate,
+				'contact': contact,
+				'email':email,
+				'balance':balance
+			 }));
+		this.setState({
+			firstname: firstname,
+			lastname: lastname,
+			birthdate:birthdate,
+			contact: contact,
+			email: email,
+			balance:balance,
+			employeeList:employeesCopy,
+			addNewEmp:false
+		});
+
+		e.preventDefault();
+	}
 
 	onDeleteEmployee=(index, e)=>{
 		let empCopy = this.state.employeeList;			
@@ -205,6 +242,17 @@ class Employees extends Component {
 						success={this.state.success}
 						/> 
 					}
+				
+					<button className="btn btn-info" onClick={this.onAddNewEmployee}>Add new employee</button>					
+					{!this.state.addNewEmp ? '' : <Create
+						createSave={this.onSaveCreate}
+						onEditFirstname={this.onUpdateFirstname}
+						onEditLastname={this.onUpdateLastName}
+						onEditBirthdate={this.onUpdateBirthdate}
+						onEditContact={this.onUpdateContact}
+						onEditEmail={this.onUpdateEmail}
+						onEditBalance={this.onUpdateBalance}
+						/>  }
 				</div>
 			);
 	}

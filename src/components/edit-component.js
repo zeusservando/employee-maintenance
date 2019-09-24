@@ -19,10 +19,10 @@ import React from "react"
 							<tr key={key}>
 								<td><input type="text" onChange={props.onEditFirstname}  defaultValue={value.firstname}/></td>
 								<td><input type="text" onChange={props.onEditLastname}  defaultValue={value.lastname}/></td>
-								<td><input type="text" onChange={props.onEditBirthdat}  defaultValue={value.birthdate}/></td>
+								<td><input type="text" onChange={props.onEditBirthdate}  defaultValue={value.birthdate}/></td>
 								<td><input type="text" onChange={props.onEditContact}  defaultValue={value.contact}/></td>
 								<td><input type="text" onChange={props.onEditEmail}  defaultValue={value.email}/></td>
-								<td><input type="text" onChange={props.onEditBalance}  defaultValue={value.balance}/></td>
+								<td><input type="number" onChange={props.onEditBalance} min="1" max="100000" size="20"   defaultValue={value.balance}/></td>
 								<td>
 									<button 
  										className="btn btn-success"
