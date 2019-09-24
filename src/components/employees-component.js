@@ -23,7 +23,7 @@ class Employees extends Component {
 		}
 		this.onUpdateFirstname = this.onUpdateFirstname.bind(this);
 		this.onUpdateLastName = this.onUpdateLastName.bind(this);
-		this.onUpdateBirthDate = this.onUpdateBirthDate.bind(this);
+		this.onUpdateDateOfBirth = this.onUpdateDateOfBirth.bind(this);
 		this.onUpdateContact = this.onUpdateContact.bind(this);
 		this.onUpdateEmail = this.onUpdateEmail.bind(this);
 		this.onUpdateBalance = this.onUpdateBalance.bind(this);
@@ -59,7 +59,7 @@ class Employees extends Component {
 		this.setState({lastname:e.target.value});
 	}
 
-	onUpdateBirthDate(e){
+	onUpdateDateOfBirth(e){
 		console.log(e);
 		this.setState({birthdate:e.target.value});
 	}
@@ -235,7 +235,7 @@ class Employees extends Component {
 						SaveEdit={this.onSaveEdit.bind(this)}
 						onEditFirstname={this.onUpdateFirstname}
 						onEditLastname={this.onUpdateLastName}
-						onEditBirthdate={this.onUpdateBirthdate}
+						onEditBirthdate={this.onUpdateDateOfBirth}
 						onEditContact={this.onUpdateContact}
 						onEditEmail={this.onUpdateEmail}
 						onEditBalance={this.onUpdateBalance}
@@ -248,7 +248,7 @@ class Employees extends Component {
 						createSave={this.onSaveCreate}
 						onEditFirstname={this.onUpdateFirstname}
 						onEditLastname={this.onUpdateLastName}
-						onEditBirthdate={this.onUpdateBirthdate}
+						onEditBirthdate={this.onUpdateDateOfBirth}
 						onEditContact={this.onUpdateContact}
 						onEditEmail={this.onUpdateEmail}
 						onEditBalance={this.onUpdateBalance}
