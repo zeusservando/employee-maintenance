@@ -2,7 +2,6 @@ import React from "react";
 
 
 const Create=(props)=>{
-	console.log(props);
 	return(
 			<div>
 					<table  className="table table-condensed">

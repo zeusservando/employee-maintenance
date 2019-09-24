@@ -6,7 +6,6 @@ class Employees extends Component {
 
 	constructor(props){
 		super(props);
-
 		this.state={
 			firstname:'',
 			lastname:'',
@@ -19,7 +18,8 @@ class Employees extends Component {
 			employeeList:[],
 			addNewEmp:false,
 			isEdit:false,
-			success:false
+			success:false,
+			chckIfEmptyOrNot:false
 		}
 		this.onUpdateFirstname = this.onUpdateFirstname.bind(this);
 		this.onUpdateLastName = this.onUpdateLastName.bind(this);
@@ -55,16 +55,13 @@ class Employees extends Component {
 	}
 
 	onUpdateLastName(e){
-		console.log(e);
 		this.setState({lastname:e.target.value});
 	}
 
 	onUpdateDateOfBirth(e){
-		console.log(e);
 		this.setState({birthdate:e.target.value});
 	}
 	onUpdateContact(e){
-		console.log(e);
 		this.setState({contact:e.target.value});
 	}
 	onUpdateEmail(e){
@@ -122,7 +119,6 @@ class Employees extends Component {
 	}
 
 	onReturn=()=>{
-		console.log(this.state.employeeList);
 		this.setState({
 			isEdit:false,
 			employeeList:this.state.employeeList
@@ -152,6 +148,15 @@ class Employees extends Component {
 				'email':email,
 				'balance':balance
 			 }));
+
+
+		if(firstname === "" || lastname === "" || birthdate === "" || contact === "" || email === "" || balance === "" ){
+			this.setState({
+				chckIfEmptyOrNot:"All fields are required."
+			});
+
+		}else {
+
 		this.setState({
 			firstname: firstname,
 			lastname: lastname,
@@ -160,8 +165,10 @@ class Employees extends Component {
 			email: email,
 			balance:balance,
 			employeeList:employeesCopy,
-			addNewEmp:false
+			addNewEmp:false,
+			chckIfEmptyOrNot:"New employee added"
 		});
+		}
 
 		e.preventDefault();
 	}
@@ -242,8 +249,8 @@ class Employees extends Component {
 						success={this.state.success}
 						/> 
 					}
-				
 					<button className="btn btn-info" onClick={this.onAddNewEmployee}>Add new employee</button>					
+					
 					{!this.state.addNewEmp ? '' : <Create
 						createSave={this.onSaveCreate}
 						onEditFirstname={this.onUpdateFirstname}
@@ -253,8 +260,10 @@ class Employees extends Component {
 						onEditEmail={this.onUpdateEmail}
 						onEditBalance={this.onUpdateBalance}
 						/>  }
+				<h4 className={this.state.chckIfEmptyOrNot === "All fields are required."  ? 'text text-danger' : 'text text-success' } >{this.state.chckIfEmptyOrNot}</h4>
 				</div>
 			);
+
 	}
 }
 export default Employees;
