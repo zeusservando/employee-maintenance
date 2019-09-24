@@ -130,8 +130,14 @@ class Employees extends Component {
 
 
 	onDeleteEmployee=(index, e)=>{
-		// const employeesCopy=['']
-	}
+		let empCopy = this.state.employeeList;			
+			for (var i = 0; i < empCopy.length; i++) {
+				empCopy.splice(--index, 1);
+			}
+			this.setState({
+				employeeList:empCopy
+			});
+		}
 
 	render() {
 		return(
