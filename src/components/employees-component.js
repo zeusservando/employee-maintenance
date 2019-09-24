@@ -175,16 +175,18 @@ class Employees extends Component {
 	}
 
 	onDeleteEmployee=(index, e)=>{
-		let empCopy = this.state.employeeList;			
+		let empCopy = this.state.employeeList;
 		if(window.confirm("Are you sure you want to delete thi employee?"))
 		{
-			for (var i = 0; i < empCopy.length; i++) {
-					empCopy.splice(--index, 1);
+			for (let key in empCopy ) {
+					if(++key === index){
+						empCopy.splice(--index, 1);
+					}
 				}
-				this.setState({
+			}
+			this.setState({
 					employeeList:empCopy
 				});
-			}
 		}
 
 	render() {
