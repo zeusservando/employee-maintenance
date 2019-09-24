@@ -131,12 +131,15 @@ class Employees extends Component {
 
 	onDeleteEmployee=(index, e)=>{
 		let empCopy = this.state.employeeList;			
+		if(window.confirm("Are you sure you want to delete thi employee?"))
+		{
 			for (var i = 0; i < empCopy.length; i++) {
-				empCopy.splice(--index, 1);
+					empCopy.splice(--index, 1);
+				}
+				this.setState({
+					employeeList:empCopy
+				});
 			}
-			this.setState({
-				employeeList:empCopy
-			});
 		}
 
 	render() {
@@ -166,9 +169,26 @@ class Employees extends Component {
 									<td>{value.contact}</td>
 									<td>{value.email}</td>
 									<td>{value.balance}</td>
-									<td><button className="btn btn-info" onClick={this.onEditEmployee.bind(this,key)}>Edit</button></td>
-									<td><button className="btn btn-success">Add pay</button></td>
-									<td><button className="btn btn-danger" onClick={this.onDeleteEmployee.bind(this,key)} >Delete</button></td>
+									<td>
+										<button 
+											className="btn btn-info" 
+											onClick={this.onEditEmployee.bind(this,key)}>
+											Edit
+										</button>
+									</td>
+									<td>
+										<button 
+											className="btn btn-success">
+											Add pay
+										</button></td>
+									<td>
+										<button 
+											className="btn btn-danger" 
+											// onClick={this.onDeleteEmployee.bind(this,key)}>
+											onClick={this.onDeleteEmployee.bind(this,key)}>
+											Delete
+										</button>
+									</td>
 								</tr>
 							)}							
 						</tbody>
