@@ -50,16 +50,14 @@ const Create=(props)=>{
 										onChange={props.onEditBalance}
 									/>
 								</td>
-								<td>
-									<button 
- 										className="btn btn-success"
- 										onClick={props.createSave}
- 										>Create
- 									</button>
-								</td>
 							</tr>
 						</tbody>
-					</table>		
+					</table>
+					<button 
+							className="btn btn-success"
+							onClick={props.createSave}
+							>Create
+					</button>		
 			</div>
 		);
 }

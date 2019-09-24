@@ -3,7 +3,7 @@ import React from "react"
  const Edit = (props)=>{
 
  	return (
- 			<div>
+ 		 <div>
  			<table  className="table table-condensed">
 						<tbody>
 							<tr>
@@ -14,6 +14,7 @@ import React from "react"
 								<th>Email</th>
 								<th>Balance</th>
 								<th></th>
+								<th></th>
 							</tr>
  								{props.employeeList.map((value, key)=>
 							<tr key={key}>
@@ -23,25 +24,25 @@ import React from "react"
 								<td><input type="text" onChange={props.onEditContact}  defaultValue={value.contact}/></td>
 								<td><input type="text" onChange={props.onEditEmail}  defaultValue={value.email}/></td>
 								<td><input type="number" onChange={props.onEditBalance} min="1" max="100000" size="20"   defaultValue={value.balance}/></td>
-								<td>
-									<button 
- 										className="btn btn-success"
- 										onClick={props.SaveEdit} 
- 										>Save
- 									</button>
-								</td>
-								<td>
-									<button 
- 										className="btn btn-warning" 
- 										onClick={props.returnEdit}
- 										>Return
- 									</button>
-								</td>
 							</tr>
 							)}
 					</tbody>
-			</table>		
-							<p style={{color:'#4aff12'}}>{props.success ? "Record updated!": ""}</p>
+				</table>
+
+				<h3 style={{color:'#4aff12'}}>{props.success ? "Record updated!": ""}</h3>
+				<br/><br/>			
+
+				<button 
+					className="btn btn-success"
+					onClick={props.SaveEdit} 
+				>Save
+				</button> &nbsp; &nbsp;
+				<button 
+					className="btn btn-warning" 
+					onClick={props.returnEdit}
+				>Return
+				</button>
+				<br/><br/>			
 			</div>
  					)
  }

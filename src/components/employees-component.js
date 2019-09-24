@@ -80,7 +80,8 @@ class Employees extends Component {
 			empId:index,
 			isEdit:true,
 			getCurrentEmp:getCurrentEmp,
-			employeeList:this.state.employeeList
+			employeeList:this.state.employeeList,
+			chckIfEmptyOrNot:''
 		});
 	}
 
