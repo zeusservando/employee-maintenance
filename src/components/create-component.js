@@ -12,6 +12,7 @@ const Create=(props)=>{
 								<th>Date of Birth</th>
 								<th>Contact Number</th>
 								<th>Email</th>
+								<th>Balance</th>
 							</tr>
 							<tr>
 								<td>
@@ -46,8 +47,11 @@ const Create=(props)=>{
 								</td>
 								<td>
 									<input 
-										type="text" 
+										type="number" 
 										onChange={props.onEditBalance}
+										className="form-control"
+										min={0} 
+										max={100000} 
 									/>
 								</td>
 							</tr>

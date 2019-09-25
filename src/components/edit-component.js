@@ -18,12 +18,46 @@ import React from "react"
 							</tr>
  								{props.employeeList.map((value, key)=>
 							<tr key={key}>
-								<td><input type="text" onChange={props.onEditFirstname}  defaultValue={value.firstname}/></td>
-								<td><input type="text" onChange={props.onEditLastname}  defaultValue={value.lastname}/></td>
-								<td><input type="text" onChange={props.onEditBirthdate}  defaultValue={value.birthdate}/></td>
-								<td><input type="text" onChange={props.onEditContact}  defaultValue={value.contact}/></td>
-								<td><input type="text" onChange={props.onEditEmail}  defaultValue={value.email}/></td>
-								<td><input type="number" onChange={props.onEditBalance} min="1" max="100000" size="20"   defaultValue={value.balance}/></td>
+								<td>
+									<input 
+										type="text" 
+										onChange={props.onEditFirstname}  
+										defaultValue={value.firstname}/>
+								</td>
+								<td>
+									<input 
+										type="text" 
+										onChange={props.onEditLastname}  
+										defaultValue={value.lastname}/>
+								</td>
+								<td>
+									<input 
+										type="text" 
+										onChange={props.onEditBirthdate}  
+										defaultValue={value.birthdate}/>
+								</td>
+								<td>
+									<input 
+										type="text" 
+										onChange={props.onEditContact}  
+										defaultValue={value.contact}/>
+								</td>
+								<td>
+									<input 
+										type="text" 
+										onChange={props.onEditEmail}  
+										defaultValue={value.email}/>
+								</td>
+								<td>
+									<input 
+										type="number" 
+										className="form-control" 
+										onChange={props.onEditBalance} 
+										min={0} 
+										max={100000}
+										size="20"   
+										defaultValue={value.balance}/>
+								</td>
 							</tr>
 							)}
 					</tbody>

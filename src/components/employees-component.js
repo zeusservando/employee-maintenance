@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Create from './create-component';
 import Edit from './edit-component';
+import Search from './search-component';
 
 class Employees extends Component {
 
@@ -27,6 +28,7 @@ class Employees extends Component {
 		this.onUpdateContact = this.onUpdateContact.bind(this);
 		this.onUpdateEmail = this.onUpdateEmail.bind(this);
 		this.onUpdateBalance = this.onUpdateBalance.bind(this);
+		this.onSearchEmployee = this.onSearchEmployee.bind(this);
 	}
 
 	componentDidMount()
@@ -98,11 +100,11 @@ class Employees extends Component {
 		let getCurrentEmp=employeesCopy[--empId];
 		for (var i = 0; i < employeesCopy.length; i++) {
 			employeesCopy[empId].firstname = firstname 	 === "" ? employeesCopy[empId].firstname : firstname;
-			employeesCopy[empId].lastname = lastname 	 === "" ? employeesCopy[empId].lastname : lastname;
+			employeesCopy[empId].lastname  = lastname 	 === "" ? employeesCopy[empId].lastname : lastname;
 			employeesCopy[empId].birthdate = birthdate 	 === "" ? employeesCopy[empId].birthdate : birthdate;
-			employeesCopy[empId].contact = contact 	 === "" ? employeesCopy[empId].contact : contact;
-			employeesCopy[empId].email = email  	 === "" ? employeesCopy[empId].email : email;
-			employeesCopy[empId].balance = balance 	 === "" ? employeesCopy[empId].balance : balance;
+			employeesCopy[empId].contact   = contact 	 === "" ? employeesCopy[empId].contact : contact;
+			employeesCopy[empId].email 	   = email  	 === "" ? employeesCopy[empId].email : email;
+			employeesCopy[empId].balance   = balance 	 === "" ? employeesCopy[empId].balance : balance;
 		}
 
 		this.setState({
@@ -122,13 +124,20 @@ class Employees extends Component {
 	onReturn=()=>{
 		this.setState({
 			isEdit:false,
+			success:true,
 			employeeList:this.state.employeeList
 		});	
 	}
 
 	onAddNewEmployee=()=>{
 		this.setState({
-			addNewEmp:true
+			addNewEmp:true,
+			firstname: '',
+			lastname: '',
+			birthdate:'',
+			contact:'',
+			email: '',
+			balance:'',
 		});
 	}
 
@@ -157,18 +166,17 @@ class Employees extends Component {
 			});
 
 		}else {
-
-		this.setState({
-			firstname: firstname,
-			lastname: lastname,
-			birthdate:birthdate,
-			contact: contact,
-			email: email,
-			balance:balance,
-			employeeList:employeesCopy,
-			addNewEmp:false,
-			chckIfEmptyOrNot:"New employee added"
-		});
+			this.setState({
+				firstname: firstname,
+				lastname: lastname,
+				birthdate:birthdate,
+				contact: contact,
+				email: email,
+				balance:balance,
+				employeeList:employeesCopy,
+				addNewEmp:false,
+				chckIfEmptyOrNot:"New employee added"
+			});
 		}
 
 		e.preventDefault();
@@ -189,9 +197,50 @@ class Employees extends Component {
 				});
 		}
 
+	onSearchEmployee=(e)=>{
+
+		let firstname 	= this.state.firstname;
+		let lastname 	= this.state.lastname;
+		let birthdate   = this.state.birthdate;
+		let contact 	= this.state.contact;
+		let email 		= this.state.email;
+		let balance 	= this.state.balance;
+
+		this.onUpdateFirstname(e);
+
+		let copyOfEmp = Object.assign({},this.state.employeeList);
+		
+			for (let key in copyOfEmp ) {
+					if(copyOfEmp[key].firstname === firstname){
+						Object.assign({},{
+							'firstname':firstname,
+							'lastname':lastname,
+							'birthdate':birthdate,
+							'contact': contact,
+							'email':email,
+							'balance':balance
+						 });
+
+						this.setState({
+							firstname: firstname,
+							lastname: lastname,
+							birthdate:birthdate,
+							contact: contact,
+							email: email,
+							balance:balance,
+							employeeList:copyOfEmp,
+						});
+
+						console.log(this.state.employeeList);
+					}else{
+						console.log("none");
+					}
+				}
+	}
 	render() {
 		return(
 			<div>
+					<Search searchEmp={this.onSearchEmployee}/>
 					{ !this.state.isEdit ?
 					<table  className="table table-condensed">
 						<tbody>
@@ -252,7 +301,7 @@ class Employees extends Component {
 						success={this.state.success}
 						/> 
 					}
-					<button className="btn btn-info" onClick={this.onAddNewEmployee}>Add new employee</button>					
+					{this.state.isEdit ? '' :<button className="btn btn-info" onClick={this.onAddNewEmployee}>Add new employee</button>}					
 					
 					{!this.state.addNewEmp ? '' : <Create
 						createSave={this.onSaveCreate}
