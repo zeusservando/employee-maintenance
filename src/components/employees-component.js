@@ -198,49 +198,38 @@ class Employees extends Component {
 		}
 
 	onSearchEmployee=(e)=>{
+		let firstname = e.target.value;
+		console.log(firstname);
+		if( firstname === "") {
+			window.location.reload();
+		 	console.log("rerender");
 
-		let firstname 	= this.state.firstname;
-		let lastname 	= this.state.lastname;
-		let birthdate   = this.state.birthdate;
-		let contact 	= this.state.contact;
-		let email 		= this.state.email;
-		let balance 	= this.state.balance;
+		} else {
+			this.setState({
+				firstname:firstname
+			});
+		}
 
-		this.onUpdateFirstname(e);
-
-		let copyOfEmp = Object.assign({},this.state.employeeList);
-		
-			for (let key in copyOfEmp ) {
-					if(copyOfEmp[key].firstname === firstname){
-						Object.assign({},{
-							'firstname':firstname,
-							'lastname':lastname,
-							'birthdate':birthdate,
-							'contact': contact,
-							'email':email,
-							'balance':balance
-						 });
-
-						this.setState({
-							firstname: firstname,
-							lastname: lastname,
-							birthdate:birthdate,
-							contact: contact,
-							email: email,
-							balance:balance,
-							employeeList:copyOfEmp,
-						});
-
-						console.log(this.state.employeeList);
-					}else{
-						console.log("none");
-					}
-				}
 	}
+
+	onGetEmployee=(e)=>{
+		let copyOfEmp = this.state.employeeList;
+		let indexOfEmp = copyOfEmp.findIndex(emp => emp.firstname ===  this.state.firstname ); 
+		let setReult = copyOfEmp[indexOfEmp];
+		console.log(setReult === undefined ? this.state.employeeList : [setReult]);
+		this.setState({
+			employeeList: setReult === undefined ? this.state.employeeList : [setReult],
+		})
+	}
+
 	render() {
 		return(
 			<div>
-					<Search searchEmp={this.onSearchEmployee}/>
+
+					<Search 
+						searchEmp={this.onSearchEmployee}
+						getEmp={this.onGetEmployee}
+					/>
 					{ !this.state.isEdit ?
 					<table  className="table table-condensed">
 						<tbody>
